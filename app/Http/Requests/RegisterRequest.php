@@ -2,19 +2,13 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\User;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use App\Http\Requests\AbstractFormRequest;
 
-class StoreUserRequest extends FormRequest
+final class RegisterRequest extends AbstractFormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +18,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'max:255', Rule::unique(User::getTableName(), 'email')->ignore($this->get('id'))],
             'password' => ['required', 'confirmed', Password::default()],
         ];
     }

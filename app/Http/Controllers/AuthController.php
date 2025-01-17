@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Traits\HttpResponses;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\LoginUserRequest;
-use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
     use HttpResponses;
 
-    public function login(LoginUserRequest $request)
+    public function login(LoginRequest $request)
     {
         $request->validated($request->all());
 
@@ -29,7 +29,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(StoreUserRequest $request)
+    public function register(RegisterRequest $request)
     {
         $request->validated($request->all());
 

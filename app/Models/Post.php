@@ -2,19 +2,42 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\HasTableName;
+use App\Models\Enums\ModulePrefixEnum;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Post extends Model
+
+/**
+ * @property int $id
+ * @property string $title
+ * @property string $content
+ * @property User $user
+ * @property Carbon $created_at
+ * @property Carbon|null $updated_at
+ */
+final class Post extends Model
 {
     use HasFactory;
+    use HasTableName;
 
+    /** @inheritdoc*/
+    protected $table = ModulePrefixEnum::POST_MODULE->value;
+
+    /** @inheritdoc*/
     protected $fillable = [
-        'user_id', 'title', 'content'
+        'title', 'content', 'user_id'
     ];
 
-    public function user()
+    /** @inheritdoc */
+    protected $relations = [
+        'user',
+    ];
+
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
+
 }

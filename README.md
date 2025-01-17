@@ -9,3 +9,5 @@ Make sure you have environment setup properly. You will need PHP8.1, composer an
 - Run migrations `php artisan migrate`
 - Start local server by executing  `php artisan serve`
 
+
+POSTMAN WORKSPACE: https://www.postman.com/aerospace-technologist-77645485/workspace/post-api

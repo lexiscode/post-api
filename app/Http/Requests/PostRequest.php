@@ -1,19 +1,13 @@
 <?php
 
 namespace App\Http\Requests;
+use Illuminate\Validation\Rule;
+use App\Models\User;
+use App\Http\Requests\AbstractFormRequest;
 
-use Illuminate\Foundation\Http\FormRequest;
 
-class StorePostRequest extends FormRequest
+final class PostRequest extends AbstractFormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,6 +18,7 @@ class StorePostRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
+            'user_id' => ['required', 'integer', Rule::exists(User::getTableName(), 'id')],
         ];
     }
 }

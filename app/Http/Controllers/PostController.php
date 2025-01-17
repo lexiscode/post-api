@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Http\Request;
 use App\Traits\HttpResponses;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\PostRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PostController extends Controller
@@ -27,7 +26,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePostRequest $request)
+    public function store(PostRequest $request)
     {
         $request->validated($request->all());
 
@@ -56,7 +55,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
         if ($this->isNotAuthorized($post)) {
             return $this->isNotAuthorized($post);
