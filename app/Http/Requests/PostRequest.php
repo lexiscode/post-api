@@ -18,7 +18,6 @@ final class PostRequest extends AbstractFormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
-            'user_id' => ['required', 'integer', Rule::exists(User::getTableName(), 'id')],
         ];
     }
 }
